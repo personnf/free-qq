@@ -16,26 +16,11 @@
  */
 package com.github.personnf.freeqq
 
-import net.mamoe.mirai.Bot
 import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Shell
 
-object Main {
-
-    @Volatile
-    lateinit var bot: Bot
-    lateinit var shell: Shell
-
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val display = Display.getDefault()
-        shell = LoginWindow(display)
-        shell.open()
-        while (!shell.isDisposed()) {
-            if (!display.readAndDispatch()) {
-                display.sleep()
-            }
-        }
-        display.dispose()
+class MainWindow(display: Display) : Shell(display) {
+    init {
+        text = "QQ"
     }
 }
