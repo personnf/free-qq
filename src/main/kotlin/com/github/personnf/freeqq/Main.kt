@@ -16,6 +16,7 @@
  */
 package com.github.personnf.freeqq
 
+import com.github.personnf.freeqq.window.LoginWindow
 import net.mamoe.mirai.Bot
 import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Shell

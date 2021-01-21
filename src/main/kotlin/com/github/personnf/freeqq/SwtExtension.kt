@@ -24,9 +24,7 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.FontMetrics
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.layout.GridData
-import org.eclipse.swt.widgets.Button
-import org.eclipse.swt.widgets.Display
-import org.eclipse.swt.widgets.Shell
+import org.eclipse.swt.widgets.*
 
 object SwtExtension {
 
@@ -49,6 +47,13 @@ object SwtExtension {
         val minSize = this.computeSize(SWT.DEFAULT, SWT.DEFAULT, true)
         gridData.widthHint = Math.max(widthHint, minSize.x)
         return gridData
+    }
+
+    fun TabFolder.append(title: String, content: Control): TabItem {
+        val tabItem = TabItem(this, SWT.NONE)
+        tabItem.text = title
+        tabItem.control = content
+        return tabItem
     }
 
     fun String.infoDialog() {

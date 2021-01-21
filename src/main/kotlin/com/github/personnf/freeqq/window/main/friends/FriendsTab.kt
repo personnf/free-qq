@@ -14,13 +14,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.personnf.freeqq
+package com.github.personnf.freeqq.window.main.friends
 
-import org.eclipse.swt.widgets.Display
-import org.eclipse.swt.widgets.Shell
+import org.eclipse.swt.SWT
+import org.eclipse.swt.widgets.TabFolder
+import org.eclipse.swt.widgets.TabItem
 
-class MainWindow(display: Display) : Shell(display) {
+class FriendsTab(parent: TabFolder) : TabItem(parent, SWT.NONE) {
     init {
-        text = "QQ"
+        text = "Friends"
+        control = FriendsList(parent).control
     }
 }

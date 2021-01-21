@@ -14,11 +14,13 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.personnf.freeqq
+package com.github.personnf.freeqq.window
 
+import com.github.personnf.freeqq.Main
 import com.github.personnf.freeqq.SwtExtension.center
 import com.github.personnf.freeqq.SwtExtension.dialog
 import com.github.personnf.freeqq.SwtExtension.jface
+import com.github.personnf.freeqq.window.main.MainWindow
 import kotlinx.coroutines.runBlocking
 import net.mamoe.mirai.BotFactory
 import net.mamoe.mirai.utils.BotConfiguration
@@ -55,10 +57,16 @@ class LoginWindow(display: Display) : Shell(display) {
         button.addSelectionListener(SelectionListener.widgetSelectedAdapter {
             val qqStr = qqText.text
             val password = passwordText.text
-            if (qqStr.isNotBlank() && password.isNotEmpty()) {
+            if (qqStr.isBlank() || password.isEmpty()) {
                 return@widgetSelectedAdapter
             }
-            val qq = qqStr.toLong()
+            val qq: Long
+            try {
+                qq = qqStr.toLong()
+            } catch (ex: Exception) {
+                ex.dialog()
+                return@widgetSelectedAdapter
+            }
 
             qqText.enabled = false
             passwordText.enabled = false
@@ -66,7 +74,7 @@ class LoginWindow(display: Display) : Shell(display) {
             button.text = "Login..."
             text = "QQ Login..."
 
-            Thread {
+            val thread = Thread {
                 runBlocking {
                     try {
                         val config = BotConfiguration()
@@ -92,7 +100,9 @@ class LoginWindow(display: Display) : Shell(display) {
                         }
                     }
                 }
-            }.start()
+            }
+            thread.isDaemon = true
+            thread.start()
         })
 
         pack()
