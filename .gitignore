@@ -21,3 +21,7 @@ buildNumber.properties
 /.factorypath
 
 /.vscode/
+
+*.log
+device.json
+/MxLibData/

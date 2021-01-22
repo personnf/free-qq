@@ -80,9 +80,13 @@ class LoginWindow(display: Display) : Shell(display) {
                         val config = BotConfiguration()
                         config.fileBasedDeviceInfo()
                         config.inheritCoroutineContext()
-                        val bot = BotFactory.newBot(qq, password, config)
-                        bot.login()
-                        Main.bot = bot
+                        Main.bot = BotFactory.newBot(qq, password, config)
+                        try {
+                            Main.bot.login()
+                        } catch (ex: Exception) {
+                            Main.bot.close(ex)
+                            throw ex
+                        }
 
                         display.asyncExec {
                             Main.shell = MainWindow(display)

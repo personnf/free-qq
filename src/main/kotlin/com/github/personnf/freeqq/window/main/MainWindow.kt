@@ -18,7 +18,9 @@ package com.github.personnf.freeqq.window.main
 
 import com.github.personnf.freeqq.Main
 import com.github.personnf.freeqq.window.main.friends.FriendsTab
+import com.github.personnf.freeqq.window.main.groups.GroupsTab
 import org.eclipse.swt.SWT
+import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Display
@@ -27,7 +29,7 @@ import org.eclipse.swt.widgets.Shell
 import org.eclipse.swt.widgets.TabFolder
 
 class MainWindow(display: Display) : Shell(display) {
-    lateinit var onlineLabel: Label
+    var onlineLabel: Label
 
     init {
         text = "QQ"
@@ -48,6 +50,12 @@ class MainWindow(display: Display) : Shell(display) {
         tabFolder.layoutData = GridData(SWT.FILL, SWT.FILL, true, true, 1, 1)
 
         FriendsTab(tabFolder)
+        GroupsTab(tabFolder)
+
+        size = Point(300, 500)
+
+        val clientArea = display.primaryMonitor.clientArea
+        location = Point(clientArea.width - size.x - 100 + clientArea.x, clientArea.y)
     }
 
     override fun checkSubclass() {}

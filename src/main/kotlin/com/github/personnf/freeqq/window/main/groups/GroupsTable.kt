@@ -14,32 +14,18 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.personnf.freeqq
+package com.github.personnf.freeqq.window.main.groups
 
-import com.github.personnf.freeqq.window.LoginWindow
-import net.mamoe.mirai.Bot
-import org.eclipse.swt.widgets.Display
-import org.eclipse.swt.widgets.Shell
+import com.github.personnf.freeqq.Main
+import com.github.personnf.freeqq.ObjectsTable
+import net.mamoe.mirai.contact.Group
+import org.eclipse.swt.widgets.Composite
 
-object Main {
+class GroupsTable(parent: Composite) : ObjectsTable(parent) {
+    init {
+        appendColumn("Name", 140) { (it as Group).name }
+        appendColumn("QQ", 100) { (it as Group).id.toString() }
 
-    @Volatile
-    lateinit var bot: Bot
-    lateinit var shell: Shell
-
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val display = Display.getDefault()
-        shell = LoginWindow(display)
-        shell.open()
-        while (!shell.isDisposed()) {
-            if (!display.readAndDispatch()) {
-                display.sleep()
-            }
-        }
-        display.dispose()
-        if (Main::bot.isInitialized) {
-            bot.close()
-        }
+        input = Main.bot.groups.toTypedArray()
     }
 }

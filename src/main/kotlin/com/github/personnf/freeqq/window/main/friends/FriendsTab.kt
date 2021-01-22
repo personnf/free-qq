@@ -23,6 +23,8 @@ import org.eclipse.swt.widgets.TabItem
 class FriendsTab(parent: TabFolder) : TabItem(parent, SWT.NONE) {
     init {
         text = "Friends"
-        control = FriendsList(parent).control
+        control = FriendsTable(parent).control
     }
+
+    override fun checkSubclass() {}
 }

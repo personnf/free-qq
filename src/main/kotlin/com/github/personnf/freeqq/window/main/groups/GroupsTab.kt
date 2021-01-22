@@ -14,32 +14,17 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.personnf.freeqq
+package com.github.personnf.freeqq.window.main.groups
 
-import com.github.personnf.freeqq.window.LoginWindow
-import net.mamoe.mirai.Bot
-import org.eclipse.swt.widgets.Display
-import org.eclipse.swt.widgets.Shell
+import org.eclipse.swt.SWT
+import org.eclipse.swt.widgets.TabFolder
+import org.eclipse.swt.widgets.TabItem
 
-object Main {
-
-    @Volatile
-    lateinit var bot: Bot
-    lateinit var shell: Shell
-
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val display = Display.getDefault()
-        shell = LoginWindow(display)
-        shell.open()
-        while (!shell.isDisposed()) {
-            if (!display.readAndDispatch()) {
-                display.sleep()
-            }
-        }
-        display.dispose()
-        if (Main::bot.isInitialized) {
-            bot.close()
-        }
+class GroupsTab(parent: TabFolder) : TabItem(parent, SWT.NONE) {
+    init {
+        text = "Groups"
+        control = GroupsTable(parent).control
     }
+
+    override fun checkSubclass() {}
 }
